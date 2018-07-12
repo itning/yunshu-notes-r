@@ -10,10 +10,12 @@ import top.itning.yunshunotesr.entity.NoteBook;
 import top.itning.yunshunotesr.entity.User;
 import top.itning.yunshunotesr.exception.IncorrectParameterException;
 import top.itning.yunshunotesr.exception.NoSuchIdException;
+import top.itning.yunshunotesr.hbase.HbaseRepository;
 import top.itning.yunshunotesr.securtiy.SecurityUtils;
 import top.itning.yunshunotesr.service.NoteBookService;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +32,12 @@ public class NoteBookServiceImpl implements NoteBookService {
 
     private final NoteBookDao noteBookDao;
 
+    private final HbaseRepository hbaseRepository;
+
     @Autowired
-    public NoteBookServiceImpl(NoteBookDao noteBookDao) {
+    public NoteBookServiceImpl(NoteBookDao noteBookDao, HbaseRepository hbaseRepository) {
         this.noteBookDao = noteBookDao;
+        this.hbaseRepository = hbaseRepository;
     }
 
     @Override
@@ -43,10 +48,16 @@ public class NoteBookServiceImpl implements NoteBookService {
     @Override
     public void deleteNoteBookById(String id) throws NoSuchIdException {
         if (!noteBookDao.existsById(id)) {
-            logger.info("the note book id %s does not exist", id);
+            logger.info("the note book id " + id + " does not exist");
             throw new NoSuchIdException("笔记本Id:" + id + " 不存在");
         }
-        noteBookDao.deleteById(id);
+        try {
+            hbaseRepository.batchDelete(id);
+        } catch (IOException e) {
+            logger.info("batch delete notes error ", e);
+        } finally {
+            noteBookDao.deleteById(id);
+        }
     }
 
     @Override

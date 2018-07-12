@@ -37,15 +37,15 @@ public class SecurityUtils {
      * @param resp {@link HttpServletResponse}
      * @throws IOException IOException
      */
-    static void setResponseMsg(String msg, int code, HttpServletResponse resp) throws IOException {
+    static void setResponseMsg(String msg, int code, int status, HttpServletResponse resp) throws IOException {
         resp.setHeader("Access-Control-Allow-Credentials", "true");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
         resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS,DELETE,PUT");
         resp.setHeader("Access-Control-Allow-Headers", "*");
         resp.setStatus(code);
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
-        ServerResponse serverResponse = new ServerResponse(code, msg);
+        ServerResponse serverResponse = new ServerResponse(status, msg);
         String s = OBJECT_MAPPER.writeValueAsString(serverResponse);
         resp.getWriter().write(s);
     }

@@ -10,6 +10,7 @@ import org.apache.hadoop.hbase.filter.RowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import top.itning.yunshunotesr.entity.Note;
 import top.itning.yunshunotesr.entity.NoteBook;
 
@@ -18,13 +19,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 对Hbase的CRUD操作
  *
  * @author itning
  */
-//@Repository
+@Repository
 public class HbaseRepository {
     private static final Logger logger = LoggerFactory.getLogger(HbaseRepository.class);
 
@@ -51,7 +53,7 @@ public class HbaseRepository {
             Admin admin = connection.getAdmin();
             //检查表存在
             if (admin.tableExists(TableName.valueOf(TABLE_NAME))) {
-                logger.info("the table of name %s already exists", TABLE_NAME);
+                logger.info("the table of name " + TABLE_NAME + " already exists");
                 table = connection.getTable(TableName.valueOf(TABLE_NAME.getBytes()));
             } else {
                 logger.info("create table...");
@@ -76,7 +78,7 @@ public class HbaseRepository {
     public Optional<Note> findOne(String rowKey) throws IOException {
         Result result = table.get(new Get(rowKey.getBytes()));
         if (result.size() == 0) {
-            logger.debug("the rowkey %s does not exist", rowKey);
+            logger.debug("the rowkey " + rowKey + " does not exist");
             return Optional.empty();
         }
         Note note = new Note();
@@ -142,5 +144,20 @@ public class HbaseRepository {
     public void delete(String rowKey) throws IOException {
         Delete delete = new Delete(rowKey.getBytes());
         table.delete(delete);
+    }
+
+    /**
+     * 批量删除笔记(删除笔记本时)
+     *
+     * @param noteBookId 笔记本ID
+     */
+    public void batchDelete(String noteBookId) throws IOException {
+        RowFilter filter = new RowFilter(CompareOperator.EQUAL, new RegexStringComparator("^" + noteBookId));
+        Scan scan = new Scan();
+        scan.setFilter(filter);
+        ResultScanner scanner = table.getScanner(scan);
+        List<byte[]> noteRowKey = new ArrayList<>();
+        scanner.forEach(result -> noteRowKey.add(result.getRow()));
+        table.delete(noteRowKey.stream().map(Delete::new).collect(Collectors.toList()));
     }
 }

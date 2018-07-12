@@ -50,30 +50,30 @@ public class SecurityFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         if (LOGIN_URL.equals(req.getServletPath())) {
             if (!LOGIN_METHOD.equals(req.getMethod())) {
-                SecurityUtils.setResponseMsg("不支持该方法", HttpStatus.FORBIDDEN.value(), resp);
+                SecurityUtils.setResponseMsg("不支持该方法", HttpStatus.METHOD_NOT_ALLOWED.value(), 405, resp);
                 return;
             }
             String username = req.getParameter(USERNAME_PARAMETER);
             String password = req.getParameter(PASSWORD_PARAMETER);
             Optional<User> user = this.loadUserByUserName(username);
             if (!user.isPresent()) {
-                SecurityUtils.setResponseMsg("用户不存在", HttpStatus.FORBIDDEN.value(), resp);
+                SecurityUtils.setResponseMsg("用户不存在", HttpStatus.OK.value(), 404, resp);
             } else {
                 User dbUser = user.get();
                 if (dbUser.getPassword().equals(password)) {
                     HttpSession session = req.getSession();
                     session.setAttribute(USER_SESSION_KEY, dbUser);
                     SecurityUtils.setUser(session.getId(), dbUser);
-                    SecurityUtils.setResponseMsg("登陆成功", HttpStatus.OK.value(), resp);
+                    SecurityUtils.setResponseMsg("登陆成功", HttpStatus.OK.value(), 200, resp);
                 } else {
-                    SecurityUtils.setResponseMsg("密码错误", HttpStatus.FORBIDDEN.value(), resp);
+                    SecurityUtils.setResponseMsg("密码错误", HttpStatus.OK.value(), 404, resp);
                 }
             }
         } else if (LOGOUT_URL.equals(req.getServletPath())) {
             HttpSession session = req.getSession();
             SecurityUtils.deleteUser(session.getId());
             session.invalidate();
-            SecurityUtils.setResponseMsg("注销成功", HttpStatus.OK.value(), resp);
+            SecurityUtils.setResponseMsg("注销成功", HttpStatus.OK.value(), 200, resp);
         } else if (REGISTERED_URL.equals(req.getServletPath())) {
             chain.doFilter(request, response);
         } else {
@@ -81,7 +81,7 @@ public class SecurityFilter implements Filter {
             if (req.getSession().getAttribute(USER_SESSION_KEY) != null) {
                 chain.doFilter(request, response);
             } else {
-                SecurityUtils.setResponseMsg("请先登陆", HttpStatus.FORBIDDEN.value(), resp);
+                SecurityUtils.setResponseMsg("请先登陆", HttpStatus.UNAUTHORIZED.value(), 401, resp);
             }
         }
     }
