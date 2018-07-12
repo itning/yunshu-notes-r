@@ -1,9 +1,11 @@
 package top.itning.yunshunotesr.entity;
 
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,34 +17,45 @@ import java.util.List;
  *
  * @author itning
  */
+@Entity(name = "user")
 public class User implements Serializable, UserDetails {
     /**
      * 用户唯一标识ID
      */
+    @Id
+    @Column(name = "u_id", length = 36)
+    @GeneratedValue(generator = "userIdGenerator")
+    @GenericGenerator(name = "userIdGenerator", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     /**
      * 创建时间
      */
+    @Column(name = "gmt_create", nullable = false)
     private Date gmtCreate;
     /**
      * 修改时间
      */
+    @Column(name = "gmt_modified", nullable = false)
     private Date gmtModified;
     /**
      * 用户名
      */
+    @Column(name = "username", nullable = false)
     private String username;
     /**
      * 密码
      */
+    @Column(name = "password", nullable = false)
     private String password;
     /**
      * 昵称
      */
+    @Column(name = "u_name", nullable = false)
     private String name;
     /**
      * 该用户下的所有笔记本
      */
+    @Transient
     private List<NoteBook> noteBookList;
 
     public String getId() {

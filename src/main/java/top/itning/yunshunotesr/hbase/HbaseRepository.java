@@ -23,7 +23,7 @@ import java.util.Optional;
  *
  * @author itning
  */
-@Repository
+//@Repository
 public class HbaseRepository {
     /**
      * Hbase 表对象
