@@ -8,7 +8,8 @@ import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.filter.RegexStringComparator;
 import org.apache.hadoop.hbase.filter.RowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.springframework.stereotype.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.itning.yunshunotesr.entity.Note;
 import top.itning.yunshunotesr.entity.NoteBook;
 
@@ -25,6 +26,8 @@ import java.util.Optional;
  */
 //@Repository
 public class HbaseRepository {
+    private static final Logger logger = LoggerFactory.getLogger(HbaseRepository.class);
+
     /**
      * Hbase 表对象
      */
@@ -43,12 +46,15 @@ public class HbaseRepository {
         Configuration config = HBaseConfiguration.create();
         config.set("hbase.zookeeper.quorum", "node3:2181");
         try {
+            logger.info("start build connection...");
             Connection connection = ConnectionFactory.createConnection(config);
             Admin admin = connection.getAdmin();
             //检查表存在
             if (admin.tableExists(TableName.valueOf(TABLE_NAME))) {
+                logger.info("the table of name %s already exists", TABLE_NAME);
                 table = connection.getTable(TableName.valueOf(TABLE_NAME.getBytes()));
             } else {
+                logger.info("create table...");
                 TableDescriptor descriptor = TableDescriptorBuilder.newBuilder(TableName.valueOf(TABLE_NAME))
                         .setColumnFamily(ColumnFamilyDescriptorBuilder.newBuilder(FAMILY_NAME.getBytes()).build())
                         .build();
@@ -56,7 +62,7 @@ public class HbaseRepository {
                 table = connection.getTable(TableName.valueOf(TABLE_NAME.getBytes()));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("init hbase connection error ", e);
         }
     }
 
@@ -70,6 +76,7 @@ public class HbaseRepository {
     public Optional<Note> findOne(String rowKey) throws IOException {
         Result result = table.get(new Get(rowKey.getBytes()));
         if (result.size() == 0) {
+            logger.debug("the rowkey %s does not exist", rowKey);
             return Optional.empty();
         }
         Note note = new Note();
@@ -96,6 +103,7 @@ public class HbaseRepository {
         scan.setFilter(filter);
         ResultScanner scanner = table.getScanner(scan);
         List<Note> noteList = new ArrayList<>();
+        logger.debug("the note list size is " + noteList.size());
         scanner.forEach(result -> {
             Note note = new Note();
             note.setId(Bytes.toString(result.getRow()));

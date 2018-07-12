@@ -2,13 +2,9 @@ package top.itning.yunshunotesr.entity;
 
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +14,7 @@ import java.util.List;
  * @author itning
  */
 @Entity(name = "user")
-public class User implements Serializable, UserDetails {
+public class User implements Serializable{
     /**
      * 用户唯一标识ID
      */
@@ -82,41 +78,14 @@ public class User implements Serializable, UserDetails {
         this.gmtModified = gmtModified;
     }
 
-    @Override
     public String getUsername() {
         return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList((GrantedAuthority) () -> "USER");
-    }
-
-    @Override
     public String getPassword() {
         return password;
     }
