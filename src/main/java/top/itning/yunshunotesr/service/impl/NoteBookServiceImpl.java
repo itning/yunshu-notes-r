@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.itning.yunshunotesr.dao.NoteBookDao;
 import top.itning.yunshunotesr.entity.NoteBook;
+import top.itning.yunshunotesr.entity.User;
 import top.itning.yunshunotesr.exception.IncorrectParameterException;
 import top.itning.yunshunotesr.exception.NoSuchIdException;
+import top.itning.yunshunotesr.securtiy.SecurityUtils;
 import top.itning.yunshunotesr.service.NoteBookService;
 
 import javax.transaction.Transactional;
@@ -62,12 +64,12 @@ public class NoteBookServiceImpl implements NoteBookService {
         if (StringUtils.isBlank(name)) {
             throw new IncorrectParameterException("参数不正确:" + name);
         }
-       // User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = SecurityUtils.getUser();
         NoteBook noteBook = new NoteBook();
         noteBook.setGmtCreate(new Date());
         noteBook.setGmtModified(new Date());
         noteBook.setName(name);
-       // noteBook.setUser(user);
+        noteBook.setUser(user);
         return noteBookDao.save(noteBook);
     }
 }
