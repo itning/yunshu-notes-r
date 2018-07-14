@@ -91,4 +91,20 @@ public class NoteController {
             response.setStatus(404);
         }
     }
+
+    @PatchMapping("/note/{id}/{title}/{content}")
+    public void upNote(@PathVariable("id") String id, @PathVariable("title") String title, @PathVariable("content") String content, HttpServletResponse response) {
+        try {
+            if (noteService.modifyNote(id, title, content) == null) {
+                logger.info("up note error result is null");
+                response.setStatus(500);
+            }
+        } catch (IncorrectParameterException e) {
+            logger.info("up note error ", e);
+            response.setStatus(400);
+        } catch (NoSuchIdException e) {
+            logger.info("up note error ", e);
+            response.setStatus(404);
+        }
+    }
 }

@@ -42,6 +42,18 @@ public interface NoteService {
     Note addNote(String noteBookId, String title, String content) throws IncorrectParameterException, NoSuchIdException;
 
     /**
+     * 修改笔记
+     *
+     * @param id      笔记ID
+     * @param title   笔记标题
+     * @param content 笔记内容
+     * @return 被修改的笔记实体
+     * @throws IncorrectParameterException 参数不正确
+     * @throws NoSuchIdException           笔记ID不存在
+     */
+    Note modifyNote(String id, String title, String content) throws IncorrectParameterException, NoSuchIdException;
+
+    /**
      * 根据笔记Id删除笔记
      *
      * @param id 笔记Id

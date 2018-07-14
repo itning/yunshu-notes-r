@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import top.itning.yunshunotesr.entity.ServerResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,8 +32,7 @@ public class ExceptionResolver {
     @ExceptionHandler
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ResponseBody
-    public String defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-        System.out.println(e.getClass().getSimpleName());
-        return e.getMessage();
+    public ServerResponse defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+        return new ServerResponse(404, e.getMessage());
     }
 }

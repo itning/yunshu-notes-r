@@ -11,7 +11,6 @@ import top.itning.yunshunotesr.entity.Note;
 import top.itning.yunshunotesr.entity.NoteBook;
 import top.itning.yunshunotesr.exception.IncorrectParameterException;
 import top.itning.yunshunotesr.exception.NoSuchIdException;
-import top.itning.yunshunotesr.service.NoteBookService;
 import top.itning.yunshunotesr.service.NoteService;
 
 import javax.transaction.Transactional;
@@ -82,6 +81,25 @@ public class HbaseNoteServiceImpl implements NoteService {
         } catch (IOException e) {
             logger.info("save note error ", e);
             return null;
+        }
+    }
+
+    @Override
+    public Note modifyNote(String id, String title, String content) throws IncorrectParameterException, NoSuchIdException {
+        if (StringUtils.isAnyBlank(id, title, content)) {
+            logger.info("add note parameter exception");
+            throw new IncorrectParameterException("参数不正确");
+        }
+        try {
+            Optional<Note> noteOptional = hbaseRepository.findOne(id);
+            Note note = noteOptional.orElseThrow(() -> new NoSuchIdException("ID不存在"));
+            note.setTitle(title);
+            note.setContent(content);
+            note.setGmtModified(new Date());
+            return hbaseRepository.save(note);
+        } catch (IOException e) {
+            logger.info("modify note error ", e);
+            throw new IncorrectParameterException("参数不正确");
         }
     }
 
