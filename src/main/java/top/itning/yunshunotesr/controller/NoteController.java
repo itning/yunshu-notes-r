@@ -70,12 +70,25 @@ public class NoteController {
         return serverResponse;
     }
 
+    /**
+     * 删除笔记
+     *
+     * @param id 笔记ID
+     */
     @DeleteMapping("/note/{id}")
     public void deleteNote(@PathVariable("id") String id) {
         logger.debug("delete note id is " + id);
         noteService.deleteByNoteBookId(id);
     }
 
+    /**
+     * 添加笔记
+     *
+     * @param noteBookId 笔记本ID
+     * @param title      标题
+     * @param content    内容
+     * @param response   {@link HttpServletResponse}
+     */
     @PostMapping("/note")
     public void addNote(String noteBookId, String title, String content, HttpServletResponse response) {
         try {
@@ -92,6 +105,14 @@ public class NoteController {
         }
     }
 
+    /**
+     * 修改笔记
+     *
+     * @param id       笔记ID
+     * @param title    笔记标题
+     * @param content  笔记内容
+     * @param response {@link HttpServletResponse}
+     */
     @PatchMapping("/note/{id}/{title}/{content}")
     public void upNote(@PathVariable("id") String id, @PathVariable("title") String title, @PathVariable("content") String content, HttpServletResponse response) {
         try {
