@@ -35,16 +35,14 @@ public class NoteBookController {
      */
     @GetMapping("/note_books")
     public ServerResponse getAllNoteBooks() {
-        ServerResponse serverResponse = new ServerResponse();
-        serverResponse.setData(noteBookService.getAllNoteBook().orElse(new ArrayList<>()));
-        return serverResponse;
+        return new ServerResponse(noteBookService.getAllNoteBook().orElse(new ArrayList<>()));
     }
 
     /**
      * 新建笔记本
      *
-     * @param name 笔记本名
-     * @param response   {@link HttpServletResponse}
+     * @param name     笔记本名
+     * @param response {@link HttpServletResponse}
      */
     @PostMapping("/note_books")
     public void newNoteBook(String name, HttpServletResponse response) {
