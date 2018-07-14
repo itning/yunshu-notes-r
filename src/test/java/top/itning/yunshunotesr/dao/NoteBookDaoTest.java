@@ -34,16 +34,14 @@ public class NoteBookDaoTest {
     @Before
     public void setUp() throws Exception {
         logger.info("setUp method invoke");
-        if (userDao.count() == 0) {
-            User user = new User();
-            user.setGmtCreate(new Date());
-            user.setGmtModified(new Date());
-            user.setUsername("test");
-            user.setPassword("test");
-            user.setName("test");
-            user.setNoteBookList(Lists.newArrayList());
-            userDao.saveAndFlush(user);
-        }
+        User user = new User();
+        user.setGmtCreate(new Date());
+        user.setGmtModified(new Date());
+        user.setUsername("test");
+        user.setPassword("test");
+        user.setName("test");
+        user.setNoteBookList(Lists.newArrayList());
+        userDao.saveAndFlush(user);
         if (noteBookDao.findAll().stream().noneMatch(noteBook -> noteBook.getName().equals("测试笔记本1"))) {
             NoteBook noteBook = new NoteBook();
             noteBook.setGmtCreate(new Date());

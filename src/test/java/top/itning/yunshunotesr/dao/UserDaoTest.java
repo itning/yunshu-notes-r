@@ -29,16 +29,14 @@ public class UserDaoTest {
     @Before
     public void setUp() throws Exception {
         logger.info("setUp method invoke");
-        if (userDao.count() == 0) {
-            User user = new User();
-            user.setGmtCreate(new Date());
-            user.setGmtModified(new Date());
-            user.setUsername("test1");
-            user.setPassword("test");
-            user.setName("test");
-            user.setNoteBookList(Lists.newArrayList());
-            userDao.saveAndFlush(user);
-        }
+        User user = new User();
+        user.setGmtCreate(new Date());
+        user.setGmtModified(new Date());
+        user.setUsername("test1");
+        user.setPassword("test");
+        user.setName("test");
+        user.setNoteBookList(Lists.newArrayList());
+        userDao.saveAndFlush(user);
     }
 
     @After

@@ -4,15 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.itning.yunshunotesr.entity.NoteBook;
+import top.itning.yunshunotesr.entity.ServerResponse;
 import top.itning.yunshunotesr.exception.IncorrectParameterException;
 import top.itning.yunshunotesr.exception.NoSuchIdException;
 import top.itning.yunshunotesr.service.NoteBookService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 笔记本控制层
@@ -36,20 +34,22 @@ public class NoteBookController {
      * @return 笔记本集合
      */
     @GetMapping("/note_books")
-    public List<NoteBook> getAllNoteBooks() {
-        return noteBookService.getAllNoteBook().orElse(new ArrayList<>());
+    public ServerResponse getAllNoteBooks() {
+        ServerResponse serverResponse = new ServerResponse();
+        serverResponse.setData(noteBookService.getAllNoteBook().orElse(new ArrayList<>()));
+        return serverResponse;
     }
 
     /**
      * 新建笔记本
      *
-     * @param parameters 笔记本信息
+     * @param name 笔记本名
      * @param response   {@link HttpServletResponse}
      */
     @PostMapping("/note_books")
-    public void newNoteBook(@RequestBody Map<String, String> parameters, HttpServletResponse response) {
+    public void newNoteBook(String name, HttpServletResponse response) {
         try {
-            noteBookService.addNoteBook(parameters.get("name"));
+            noteBookService.addNoteBook(name);
             response.setStatus(201);
         } catch (IncorrectParameterException e) {
             logger.info("new note book exception " + e);

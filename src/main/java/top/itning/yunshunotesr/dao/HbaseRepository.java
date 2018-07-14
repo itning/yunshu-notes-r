@@ -1,4 +1,4 @@
-package top.itning.yunshunotesr.hbase;
+package top.itning.yunshunotesr.dao;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.CompareOperator;
@@ -125,7 +125,7 @@ public class HbaseRepository {
      * @param note 笔记实体
      * @throws IOException IOException
      */
-    public void save(Note note) throws IOException {
+    public Note save(Note note) throws IOException {
         Put put = new Put(note.getId().getBytes());
         put.addColumn(FAMILY_NAME.getBytes(), "gmt_create".getBytes(), Bytes.toBytes(note.getGmtCreate().getTime()));
         put.addColumn(FAMILY_NAME.getBytes(), "gmt_modified".getBytes(), Bytes.toBytes(note.getGmtModified().getTime()));
@@ -133,6 +133,7 @@ public class HbaseRepository {
         put.addColumn(FAMILY_NAME.getBytes(), "title".getBytes(), Bytes.toBytes(note.getTitle()));
         put.addColumn(FAMILY_NAME.getBytes(), "content".getBytes(), Bytes.toBytes(note.getContent()));
         table.put(put);
+        return note;
     }
 
     /**
