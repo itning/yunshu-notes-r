@@ -40,7 +40,7 @@ public class SecurityUtils {
     static void setResponseMsg(String msg, int code, int status, HttpServletResponse resp) throws IOException {
         resp.setHeader("Access-Control-Allow-Credentials", "true");
         resp.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
-        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS,DELETE,PUT");
+        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS,DELETE,PUT,PATCH");
         resp.setHeader("Access-Control-Allow-Headers", "*");
         resp.setStatus(code);
         resp.setCharacterEncoding("utf-8");

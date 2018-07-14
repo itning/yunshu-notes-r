@@ -12,6 +12,7 @@ import top.itning.yunshunotesr.service.NoteService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -109,14 +110,13 @@ public class NoteController {
      * 修改笔记
      *
      * @param id       笔记ID
-     * @param title    笔记标题
-     * @param content  笔记内容
+     * @param note     笔记Map
      * @param response {@link HttpServletResponse}
      */
-    @PatchMapping("/note/{id}/{title}/{content}")
-    public void upNote(@PathVariable("id") String id, @PathVariable("title") String title, @PathVariable("content") String content, HttpServletResponse response) {
+    @PatchMapping("/note/{id}")
+    public void upNote(@PathVariable("id") String id, @RequestBody Map<String, String> note, HttpServletResponse response) {
         try {
-            if (noteService.modifyNote(id, title, content) == null) {
+            if (noteService.modifyNote(id, note.get("title"), note.get("content")) == null) {
                 logger.info("up note error result is null");
                 response.setStatus(500);
             }

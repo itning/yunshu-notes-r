@@ -48,6 +48,13 @@ public class SecurityFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpServletRequest req = (HttpServletRequest) request;
+        if ("OPTIONS".equals(req.getMethod())) {
+            resp.setHeader("Access-Control-Allow-Credentials", "true");
+            resp.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
+            resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS,DELETE,PUT,PATCH");
+            resp.setHeader("Access-Control-Allow-Headers", req.getHeader("Access-Control-Request-Headers"));
+            return;
+        }
         if (LOGIN_URL.equals(req.getServletPath())) {
             if (!LOGIN_METHOD.equals(req.getMethod())) {
                 SecurityUtils.setResponseMsg("不支持该方法", HttpStatus.METHOD_NOT_ALLOWED.value(), 405, resp);
