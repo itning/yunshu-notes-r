@@ -43,7 +43,7 @@ public class NoteBookServiceImpl implements NoteBookService {
 
     @Override
     public Optional<List<NoteBook>> getAllNoteBook() {
-        return Optional.of(noteBookDao.findAll());
+        return Optional.of(noteBookDao.findAllByUser(SecurityUtils.getUser()));
     }
 
     @Override

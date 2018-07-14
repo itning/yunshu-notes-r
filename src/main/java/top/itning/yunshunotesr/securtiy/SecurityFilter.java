@@ -27,6 +27,7 @@ public class SecurityFilter implements Filter {
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_URL = "/logout";
     private static final String REGISTERED_URL = "/registered";
+    private static final String GET_CODE_URL = "/get_code";
     private static final String USERNAME_PARAMETER = "username";
     private static final String PASSWORD_PARAMETER = "password";
     private static final String LOGIN_METHOD = "POST";
@@ -81,7 +82,7 @@ public class SecurityFilter implements Filter {
             SecurityUtils.deleteUser(session.getId());
             session.invalidate();
             SecurityUtils.setResponseMsg("注销成功", HttpStatus.OK.value(), 200, resp);
-        } else if (REGISTERED_URL.equals(req.getServletPath())) {
+        } else if (REGISTERED_URL.equals(req.getServletPath()) || GET_CODE_URL.equals(req.getServletPath())) {
             chain.doFilter(request, response);
         } else {
             //检查Session是否存在
