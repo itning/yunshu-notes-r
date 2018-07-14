@@ -14,8 +14,6 @@ import top.itning.yunshunotesr.securtiy.SecurityUtils;
 public class UserController {
     @GetMapping("/getLoginUser")
     public ServerResponse getLoginUser() {
-        ServerResponse serverResponse = new ServerResponse();
-        serverResponse.setData(SecurityUtils.getUser());
-        return serverResponse;
+        return new ServerResponse(SecurityUtils.getUser());
     }
 }

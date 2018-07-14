@@ -1,6 +1,7 @@
 package top.itning.yunshunotesr.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,11 +30,50 @@ public class ServerResponse implements Serializable {
     public ServerResponse() {
         this.status = 200;
         this.msg = "OK";
+        this.data = "";
+        this.dataList = new ArrayList<>();
     }
 
     public ServerResponse(int status, String msg) {
         this.status = status;
         this.msg = msg;
+        this.data = "";
+        this.dataList = new ArrayList<>();
+    }
+
+    public ServerResponse(Object data) {
+        this.status = 200;
+        this.msg = "OK";
+        this.dataList = new ArrayList<>();
+        this.data = data;
+    }
+
+    public ServerResponse(List<?> dataList) {
+        this.status = 200;
+        this.msg = "OK";
+        this.data = "";
+        this.dataList = dataList;
+    }
+
+    public ServerResponse(int status, String msg, Object data) {
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
+        this.dataList = new ArrayList<>();
+    }
+
+    public ServerResponse(int status, String msg, List<?> dataList) {
+        this.status = status;
+        this.msg = msg;
+        this.data = "";
+        this.dataList = dataList;
+    }
+
+    public ServerResponse(int status, String msg, List<?> dataList, Object data) {
+        this.status = status;
+        this.msg = msg;
+        this.dataList = dataList;
+        this.data = data;
     }
 
     public int getStatus() {
