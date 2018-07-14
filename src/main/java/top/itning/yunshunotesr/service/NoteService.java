@@ -1,6 +1,8 @@
 package top.itning.yunshunotesr.service;
 
 import top.itning.yunshunotesr.entity.Note;
+import top.itning.yunshunotesr.exception.IncorrectParameterException;
+import top.itning.yunshunotesr.exception.NoSuchIdException;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +32,14 @@ public interface NoteService {
     /**
      * 添加笔记
      *
-     * @param note 笔记实体
+     * @param noteBookId 笔记本ID
+     * @param title      笔记标题
+     * @param content    笔记内容
      * @return 被添加的笔记实体
+     * @throws IncorrectParameterException 参数不正确
+     * @throws NoSuchIdException           笔记本ID不存在
      */
-    Note addNote(Note note);
+    Note addNote(String noteBookId, String title, String content) throws IncorrectParameterException, NoSuchIdException;
 
     /**
      * 根据笔记Id删除笔记

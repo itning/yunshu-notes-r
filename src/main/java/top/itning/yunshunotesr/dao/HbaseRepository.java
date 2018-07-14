@@ -88,7 +88,6 @@ public class HbaseRepository {
         note.setTrash(Bytes.toBoolean(result.getValue(FAMILY_NAME.getBytes(), "trash".getBytes())));
         note.setTitle(Bytes.toString(result.getValue(FAMILY_NAME.getBytes(), "title".getBytes())));
         note.setContent(Bytes.toString(result.getValue(FAMILY_NAME.getBytes(), "content".getBytes())));
-        note.setNoteBook(new NoteBook());
         return Optional.of(note);
     }
 

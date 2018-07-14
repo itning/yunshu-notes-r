@@ -33,10 +33,6 @@ public class Note implements Serializable {
      * 内容
      */
     private String content;
-    /**
-     * 该笔记所属笔记本
-     */
-    private NoteBook noteBook;
 
     public String getId() {
         return id;
@@ -86,14 +82,6 @@ public class Note implements Serializable {
         this.content = content;
     }
 
-    public NoteBook getNoteBook() {
-        return noteBook;
-    }
-
-    public void setNoteBook(NoteBook noteBook) {
-        this.noteBook = noteBook;
-    }
-
     @Override
     public String toString() {
         return "Note{" +
@@ -103,7 +91,6 @@ public class Note implements Serializable {
                 ", trash=" + trash +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", noteBook=" + noteBook +
                 '}';
     }
 }

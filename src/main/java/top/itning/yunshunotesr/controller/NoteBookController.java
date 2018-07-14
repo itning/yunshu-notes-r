@@ -44,7 +44,7 @@ public class NoteBookController {
      * @param name     笔记本名
      * @param response {@link HttpServletResponse}
      */
-    @PostMapping("/note_books")
+    @PostMapping("/note_book")
     public void newNoteBook(String name, HttpServletResponse response) {
         try {
             noteBookService.addNoteBook(name);
