@@ -43,11 +43,6 @@ public class NoteBook implements Serializable {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "u_id", referencedColumnName = "u_id", nullable = false)
     private User user;
-    /**
-     * 该笔记本下所有笔记集合
-     */
-    @Transient
-    private List<Note> noteList;
 
     public String getId() {
         return id;
@@ -89,14 +84,6 @@ public class NoteBook implements Serializable {
         this.user = user;
     }
 
-    public List<Note> getNoteList() {
-        return noteList;
-    }
-
-    public void setNoteList(List<Note> noteList) {
-        this.noteList = noteList;
-    }
-
     @Override
     public String toString() {
         return "NoteBook{" +
@@ -105,7 +92,6 @@ public class NoteBook implements Serializable {
                 ", gmtModified=" + gmtModified +
                 ", name='" + name + '\'' +
                 ", user=" + user +
-                ", noteList=" + noteList +
                 '}';
     }
 }

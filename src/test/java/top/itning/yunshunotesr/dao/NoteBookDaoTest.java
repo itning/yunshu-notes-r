@@ -40,7 +40,6 @@ public class NoteBookDaoTest {
         user.setUsername("test");
         user.setPassword("test");
         user.setName("test");
-        user.setNoteBookList(Lists.newArrayList());
         userDao.saveAndFlush(user);
         if (noteBookDao.findAll().stream().noneMatch(noteBook -> noteBook.getName().equals("测试笔记本1"))) {
             NoteBook noteBook = new NoteBook();
@@ -48,7 +47,6 @@ public class NoteBookDaoTest {
             noteBook.setGmtModified(new Date());
             noteBook.setName("测试笔记本1");
             userDao.findAll().forEach(noteBook::setUser);
-            noteBook.setNoteList(Lists.newArrayList());
             noteBookDao.save(noteBook);
         }
     }
@@ -72,7 +70,6 @@ public class NoteBookDaoTest {
         noteBook.setGmtModified(new Date());
         noteBook.setName("测试笔记本1");
         userDao.findAll().forEach(noteBook::setUser);
-        noteBook.setNoteList(Lists.newArrayList());
         assertNotNull(noteBookDao.save(noteBook));
     }
 

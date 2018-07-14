@@ -35,7 +35,6 @@ public class UserDaoTest {
         user.setUsername("test1");
         user.setPassword("test");
         user.setName("test");
-        user.setNoteBookList(Lists.newArrayList());
         userDao.saveAndFlush(user);
     }
 
@@ -57,7 +56,6 @@ public class UserDaoTest {
         user.setUsername("test");
         user.setPassword("test");
         user.setName("test1");
-        user.setNoteBookList(Lists.newArrayList());
         assertNotNull(userDao.save(user));
         assertTrue(userDao.findAll().stream().anyMatch(user1 -> user1.getName().equals("test1")));
     }

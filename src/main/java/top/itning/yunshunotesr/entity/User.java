@@ -14,7 +14,7 @@ import java.util.List;
  * @author itning
  */
 @Entity(name = "user")
-public class User implements Serializable{
+public class User implements Serializable {
     /**
      * 用户唯一标识ID
      */
@@ -48,11 +48,6 @@ public class User implements Serializable{
      */
     @Column(name = "u_name", nullable = false)
     private String name;
-    /**
-     * 该用户下的所有笔记本
-     */
-    @Transient
-    private List<NoteBook> noteBookList;
 
     public String getId() {
         return id;
@@ -102,14 +97,6 @@ public class User implements Serializable{
         this.name = name;
     }
 
-    public List<NoteBook> getNoteBookList() {
-        return noteBookList;
-    }
-
-    public void setNoteBookList(List<NoteBook> noteBookList) {
-        this.noteBookList = noteBookList;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -119,7 +106,6 @@ public class User implements Serializable{
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
-                ", noteBookList=" + noteBookList +
                 '}';
     }
 }
