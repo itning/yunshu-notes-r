@@ -64,7 +64,7 @@ public class SecurityFilter implements Filter {
                     HttpSession session = req.getSession();
                     session.setAttribute(USER_SESSION_KEY, dbUser);
                     SecurityUtils.setUser(session.getId(), dbUser);
-                    SecurityUtils.setResponseMsg("登陆成功", HttpStatus.OK.value(), 200, resp);
+                    SecurityUtils.setResponseMsg("登陆成功", dbUser, HttpStatus.OK.value(), 200, resp);
                 } else {
                     SecurityUtils.setResponseMsg("密码错误", HttpStatus.OK.value(), 404, resp);
                 }

@@ -58,8 +58,7 @@ public class SecurityUtils {
         resp.setStatus(code);
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
-        ServerResponse serverResponse = new ServerResponse(status, msg);
-        serverResponse.setData(data);
+        ServerResponse serverResponse = new ServerResponse(status, msg, data);
         String s = OBJECT_MAPPER.writeValueAsString(serverResponse);
         resp.getWriter().write(s);
     }
