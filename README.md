@@ -8,9 +8,9 @@
 
 
 
-[![GitHub stars](https://img.shields.io/github/stars/itning/yunshu-notes.svg?style=social&label=Stars)]()
-[![GitHub forks](https://img.shields.io/github/forks/itning/yunshu-notes.svg?style=social&label=Fork)]()
-[![GitHub watchers](https://img.shields.io/github/watchers/itning/yunshu-notes.svg?style=social&label=Watch)]()
+[![GitHub stars](https://img.shields.io/github/stars/itning/yunshu-notes-r.svg?style=social&label=Stars)]()
+[![GitHub forks](https://img.shields.io/github/forks/itning/yunshu-notes-r.svg?style=social&label=Fork)]()
+[![GitHub watchers](https://img.shields.io/github/watchers/itning/yunshu-notes-r.svg?style=social&label=Watch)]()
 [![GitHub followers](https://img.shields.io/github/followers/itning.svg?style=social&label=Follow)]()
 
 
