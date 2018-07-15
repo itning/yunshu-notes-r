@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.itning.yunshunotesr.entity.ServerResponse;
+import top.itning.yunshunotesr.exception.UserAlreadyExistsException;
 import top.itning.yunshunotesr.securtiy.SecurityUtils;
 import top.itning.yunshunotesr.service.UserService;
 
@@ -68,6 +69,9 @@ public class UserController {
         } catch (MessagingException e) {
             logger.info("get code error ", e);
             response.setStatus(500);
+        } catch (UserAlreadyExistsException e) {
+            logger.info("get code error ", e);
+            response.setStatus(406);
         }
     }
 }

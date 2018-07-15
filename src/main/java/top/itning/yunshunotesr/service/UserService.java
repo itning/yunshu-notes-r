@@ -1,6 +1,7 @@
 package top.itning.yunshunotesr.service;
 
 import top.itning.yunshunotesr.entity.User;
+import top.itning.yunshunotesr.exception.UserAlreadyExistsException;
 
 import javax.mail.MessagingException;
 
@@ -25,6 +26,8 @@ public interface UserService {
      * 获取验证码
      *
      * @param email 邮箱
+     * @throws MessagingException         MessagingException
+     * @throws UserAlreadyExistsException 用户已经存在
      */
-    void getCode(String email) throws MessagingException;
+    void getCode(String email) throws MessagingException, UserAlreadyExistsException;
 }
