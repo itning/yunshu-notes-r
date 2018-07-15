@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.itning.yunshunotesr.entity.ServerResponse;
 import top.itning.yunshunotesr.exception.IncorrectParameterException;
+import top.itning.yunshunotesr.exception.NoSuchIdException;
 import top.itning.yunshunotesr.exception.UserAlreadyExistsException;
 import top.itning.yunshunotesr.exception.UserDoesNotExistException;
 import top.itning.yunshunotesr.securtiy.SecurityUtils;
@@ -114,6 +115,26 @@ public class UserController {
         } catch (IncorrectParameterException | UserDoesNotExistException e) {
             serverResponse.setStatus(404);
             serverResponse.setMsg(e.getMessage());
+        }
+        return serverResponse;
+    }
+
+    /**
+     * 更改用户信息
+     *
+     * @param id       ID
+     * @param name     昵称
+     * @param password 密码
+     * @return 被修改的用户信息
+     */
+    @PostMapping("/change_user_profile")
+    public ServerResponse changeUserProfile(String id, String name, String password) {
+        ServerResponse serverResponse = new ServerResponse();
+        try {
+            serverResponse.setData(userService.changeUserProfile(id, name, password));
+        } catch (NoSuchIdException e) {
+            serverResponse.setMsg(e.getMessage());
+            serverResponse.setStatus(404);
         }
         return serverResponse;
     }

@@ -1,5 +1,6 @@
 package top.itning.yunshunotesr.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import top.itning.yunshunotesr.dao.UserDao;
 import top.itning.yunshunotesr.entity.User;
 import top.itning.yunshunotesr.exception.IncorrectParameterException;
+import top.itning.yunshunotesr.exception.NoSuchIdException;
 import top.itning.yunshunotesr.exception.UserAlreadyExistsException;
 import top.itning.yunshunotesr.exception.UserDoesNotExistException;
 import top.itning.yunshunotesr.service.UserService;
@@ -106,5 +108,24 @@ public class UserServiceImpl implements UserService {
             user.setPassword(password);
             return userDao.save(user);
         }
+    }
+
+    @Override
+    public User changeUserProfile(String id, String name, String password) throws NoSuchIdException {
+        User user = userDao.findById(id).orElseThrow(() -> new NoSuchIdException("id不存在"));
+        boolean change = false;
+        if (StringUtils.isNoneBlank(name)) {
+            user.setName(name);
+            change = true;
+        }
+        if (StringUtils.isNoneBlank(password)) {
+            user.setPassword(password);
+            change = true;
+        }
+        if (change) {
+            user.setGmtModified(new Date());
+            return userDao.save(user);
+        }
+        return null;
     }
 }

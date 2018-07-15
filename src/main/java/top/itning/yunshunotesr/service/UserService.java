@@ -2,6 +2,7 @@ package top.itning.yunshunotesr.service;
 
 import top.itning.yunshunotesr.entity.User;
 import top.itning.yunshunotesr.exception.IncorrectParameterException;
+import top.itning.yunshunotesr.exception.NoSuchIdException;
 import top.itning.yunshunotesr.exception.UserAlreadyExistsException;
 import top.itning.yunshunotesr.exception.UserDoesNotExistException;
 
@@ -54,4 +55,15 @@ public interface UserService {
      * @throws UserDoesNotExistException   用户不存在
      */
     User forgetPassword(String code, String vCode, String password) throws IncorrectParameterException, UserDoesNotExistException;
+
+    /**
+     * 更改用户信息
+     *
+     * @param id       用户ID
+     * @param name     用户名
+     * @param password 密码
+     * @return 被更改的用户实体
+     * @throws NoSuchIdException ID不存在
+     */
+    User changeUserProfile(String id, String name, String password) throws NoSuchIdException;
 }
