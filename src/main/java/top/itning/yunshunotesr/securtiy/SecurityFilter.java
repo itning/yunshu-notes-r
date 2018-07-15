@@ -26,12 +26,11 @@ import java.util.Optional;
 public class SecurityFilter implements Filter {
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_URL = "/logout";
-    private static final String REGISTERED_URL = "/registered";
-    private static final String GET_CODE_URL = "/get_code";
     private static final String USERNAME_PARAMETER = "username";
     private static final String PASSWORD_PARAMETER = "password";
     private static final String LOGIN_METHOD = "POST";
     private static final String USER_SESSION_KEY = "user";
+    private static final String[] RELEASE_ARRAY = {"/registered", "/get_code", "/forget_get_code", "/forget_password"};
 
     private final UserDao userDao;
 
@@ -55,6 +54,12 @@ public class SecurityFilter implements Filter {
             resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS,DELETE,PUT,PATCH");
             resp.setHeader("Access-Control-Allow-Headers", req.getHeader("Access-Control-Request-Headers"));
             return;
+        }
+        for (String release : RELEASE_ARRAY) {
+            if (release.equals(req.getServletPath())) {
+                chain.doFilter(request, response);
+                return;
+            }
         }
         if (LOGIN_URL.equals(req.getServletPath())) {
             if (!LOGIN_METHOD.equals(req.getMethod())) {
@@ -82,8 +87,6 @@ public class SecurityFilter implements Filter {
             SecurityUtils.deleteUser(session.getId());
             session.invalidate();
             SecurityUtils.setResponseMsg("注销成功", HttpStatus.OK.value(), 200, resp);
-        } else if (REGISTERED_URL.equals(req.getServletPath()) || GET_CODE_URL.equals(req.getServletPath())) {
-            chain.doFilter(request, response);
         } else {
             //检查Session是否存在
             if (req.getSession().getAttribute(USER_SESSION_KEY) != null) {
