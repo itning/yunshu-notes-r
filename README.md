@@ -13,6 +13,46 @@
 [![GitHub watchers](https://img.shields.io/github/watchers/itning/yunshu-notes-r.svg?style=social&label=Watch)]()
 [![GitHub followers](https://img.shields.io/github/followers/itning.svg?style=social&label=Follow)]()
 
+[![GitHub license](https://img.shields.io/github/license/itning/yunshu-notes-r.svg)](https://github.com/itning/yunshu-notes-r/blob/master/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/itning/yunshu-notes-r.svg)]()
+[![GitHub release](https://img.shields.io/github/release/itning/yunshu-notes-r.svg)]()
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/itning/yunshu-notes-r.svg)]()
+[![language](https://img.shields.io/badge/language-JAVA-orange.svg)]()
+
+## 接口
+### 笔记本
+| 方法 | 接口        | 参数 | 说明 |
+| ---- | ----------- | ---- |---- |
+| get  | /note_books |      | 获取所有笔记本信息集合 |
+| post | /note_book | name:笔记本名称 | 新建笔记本 |
+| patch | /note_book/{id}/{name} | id:笔记本ID;name:新笔记本名 | 修改笔记本 |
+| delete | /note_book/{id} | id:笔记本ID | 删除笔记本 |
+### 笔记
+| 方法 | 接口        | 参数 | 说明 |
+| ---- | ----------- | ---- |---- |
+| get  | /note/{id} | id:笔记ID | 获取笔记 |
+| post | /note | noteBookId:笔记本ID;title:笔记标题;content:笔记内容 | 新建笔记 |
+| patch | /note/{id}/{title}/{content} | id:笔记ID;title:笔记名;content:笔记内容 | 修改笔记 |
+| delete | /note/{id} | id:笔记ID | 删除笔记 |
+### 用户
+| 方法 | 接口        | 参数 | 说明 |
+| ---- | ----------- | ---- |---- |
+| post | /login | username:用户名;password:密码 | 登陆 |
+| get | /logout |  | 注销 |
+| get | /getLoginUser |  | 获取登录用户信息 |
+| post | /registered | name:昵称;username:用户名;password:密码;code:验证码 | 删除笔记 |
+| get | /get_code | email:邮箱 | 获取验证码 |
+| get | /forget_get_code | email:邮箱 | 获取忘记密码邮箱验证码 |
+| post | /forget_password | code:验证码;vCode:密钥;password:密码 | 忘记密码 |
+| post | /change_user_profile | id:用户ID;name:新用户名:password:新密码 | 更改用户信息 |
+
+## 关于跨域
+
+[CorsConfig.java](https://github.com/itning/yunshu-notes-r/blob/master/src/main/java/top/itning/yunshunotesr/config/CorsConfig.java#L16)
+
+[SecurityFilter.java](https://github.com/itning/yunshu-notes-r/blob/master/src/main/java/top/itning/yunshunotesr/securtiy/SecurityFilter.java#L53)
+
+修改这两个位置，可能下个版本会单独提到配置文件中
 
 ## 项目技术栈
 
