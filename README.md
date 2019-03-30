@@ -6,18 +6,18 @@
 
 [前端项目地址:https://github.com/itning/yunshu-notes](https://github.com/itning/yunshu-notes)
 
+[![GitHub stars](https://img.shields.io/github/stars/itning/yunshu-notes-r.svg?style=social&label=Stars)](https://github.com/itning/yunshu-notes-r/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/itning/yunshu-notes-r.svg?style=social&label=Fork)](https://github.com/itning/yunshu-notes-r/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/itning/yunshu-notes-r.svg?style=social&label=Watch)](https://github.com/itning/yunshu-notes-r/watchers)
+[![GitHub followers](https://img.shields.io/github/followers/itning.svg?style=social&label=Follow)](https://github.com/itning?tab=followers)
 
-
-[![GitHub stars](https://img.shields.io/github/stars/itning/yunshu-notes-r.svg?style=social&label=Stars)]()
-[![GitHub forks](https://img.shields.io/github/forks/itning/yunshu-notes-r.svg?style=social&label=Fork)]()
-[![GitHub watchers](https://img.shields.io/github/watchers/itning/yunshu-notes-r.svg?style=social&label=Watch)]()
-[![GitHub followers](https://img.shields.io/github/followers/itning.svg?style=social&label=Follow)]()
-
+[![GitHub issues](https://img.shields.io/github/issues/itning/yunshu-notes-r.svg)](https://github.com/itning/yunshu-notes-r/issues)
 [![GitHub license](https://img.shields.io/github/license/itning/yunshu-notes-r.svg)](https://github.com/itning/yunshu-notes-r/blob/master/LICENSE)
-[![GitHub last commit](https://img.shields.io/github/last-commit/itning/yunshu-notes-r.svg)]()
-[![GitHub release](https://img.shields.io/github/release/itning/yunshu-notes-r.svg)]()
-[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/itning/yunshu-notes-r.svg)]()
-[![language](https://img.shields.io/badge/language-JAVA-orange.svg)]()
+[![GitHub last commit](https://img.shields.io/github/last-commit/itning/yunshu-notes-r.svg)](https://github.com/itning/yunshu-notes-r/commits)
+[![GitHub release](https://img.shields.io/github/release/itning/yunshu-notes-r.svg)](https://github.com/itning/yunshu-notes-r/releases)
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/itning/yunshu-notes-r.svg)](https://github.com/itning/yunshu-notes-r)
+[![HitCount](http://hits.dwyl.io/itning/yunshu-notes-r.svg)](http://hits.dwyl.io/itning/yunshu-notes-r)
+[![language](https://img.shields.io/badge/language-JAVA-green.svg)](https://github.com/itning/yunshu-notes-r)
 
 ## 接口
 ### 笔记本
